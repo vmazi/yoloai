@@ -4,7 +4,7 @@ from collections import Counter
 
 
 def get_item_counts(model_to_use, source_to_use):
-    results = model_to_use.predict(source_to_use, stream=True)  # list of Results objects
+    results = model_to_use.predict(source_to_use, stream=True, verbose=False)  # list of Results objects
     results_json = map(lambda res: json.loads(res.tojson()), results)
     return map(lambda inference_list:
                Counter(map(lambda inference: inference['name'],
@@ -14,7 +14,7 @@ def get_item_counts(model_to_use, source_to_use):
 
 if __name__ == '__main__':
     model = YOLO('yolov8n.pt')
-    source = './datasets/coco128/images/train2017/000000000142.jpg'
+    source = './datasets/coco128/images/train2017'
 
     for item_count in get_item_counts(model, source):
         print(item_count)
