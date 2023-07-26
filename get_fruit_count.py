@@ -7,8 +7,8 @@ def get_item_counts(model_to_use, source_to_use):
     results = model_to_use.predict(source_to_use, stream=True)  # list of Results objects
     results_json = map(lambda res: json.loads(res.tojson()), results)
     return map(lambda inference_list:
-               Counter(map(lambda inference:
-                           inference['name'], inference_list)),
+               Counter(map(lambda inference: inference['name'],
+                           inference_list)),
                results_json)
 
 
