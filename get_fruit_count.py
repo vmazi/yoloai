@@ -9,5 +9,11 @@ if __name__ == '__main__':
     results = model.predict(source, stream=True)  # list of Results objects
     results_json = map(lambda res: json.loads(res.tojson()), results)
     item_names_by_result = map(
-        lambda inference_list: collections.Counter(map(lambda name: name['name'], inference_list)), results_json)
+        lambda inference_list: collections.Counter(map(lambda inference: inference['name'], inference_list)), results_json)
     print(list(item_names_by_result))
+# results.stream()
+#        .map(Result::toJson)
+#        .map(array -> array.stream()
+#                           .collect(
+#                                   Collectors.groupingBy(
+#                                           Inference::getName, Collectors.counting()))
