@@ -8,9 +8,7 @@ if __name__ == '__main__':
     results = model.predict(source)  # list of Results objects
     results_json = json.loads(results[0].tojson())
     item_names = map(lambda json_res: json_res['name'], results_json)
-    items = list(item_names)
-    items.sort()
-    freq = collections.Counter(items)
+    freq = collections.Counter(item_names)
 
     for (key, value) in freq.items():
         print(key, " -> ", value)
