@@ -14,9 +14,10 @@ def get_item_counts(model_to_use, source_to_use):
 
 if __name__ == '__main__':
     model = YOLO('yolov8n.pt')
-    source = './datasets/coco128/images/train2017/000000000142.jpg'
+    source = './datasets/coco128/images/train2017'
 
-    print(get_item_counts(model, source).__next__())
+    for item_count in get_item_counts(model, source):
+        print(item_count)
 # results.stream()
 #        .map(Result::toJson)
 #        .map(array -> array.stream()
