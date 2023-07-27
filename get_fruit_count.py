@@ -6,8 +6,8 @@ from collections import Counter
 def get_item_counts(model_to_use, source_to_use, names):
     results = model_to_use.predict(source_to_use, stream=False, verbose=True, device=0, show=False)
     return map(lambda result:
-               Counter(map(lambda cls: names[int(cls)],
-                           result.boxes.cls)),
+               Counter(map(lambda box: names[int(box.cls)],
+                           result.boxes)),
                results)
 
 
