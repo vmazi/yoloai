@@ -3,20 +3,20 @@ import json
 from collections import Counter
 
 
-def get_item_counts(model_to_use, source_to_use):
-    results = model_to_use.predict(source_to_use, stream=True, verbose=False, device=0)
-    results_json = map(lambda res: json.loads(res.tojson()), results)
-    return map(lambda inference_list:
-               Counter(map(lambda inference: inference['name'],
-                           inference_list)),
-               results_json)
+def get_item_counts(model_to_use, source_to_use, names):
+    results = model_to_use.predict(source_to_use, stream=False, verbose=True, device=0, show=False)
+    return map(lambda result:
+               Counter(map(lambda cls: names[int(cls)],
+                           result.boxes.cls)),
+               results)
 
 
 if __name__ == '__main__':
-    model = YOLO('yolov8n.pt')
-    source = './datasets/coco128/images/train2017'
-
-    for item_count in get_item_counts(model, source):
+    model = YOLO('./runs/detect/train22/weights/best.pt')
+    source = './datasets/Cucumber-Slice-Counter-1/test/images/newcucumber_0_331_jpeg_jpg.rf' \
+             '.c68c395fde2e563f58d617b7b7c41910.jpg'
+    names = model.names
+    for item_count in get_item_counts(model, source, names):
         print(item_count)
 # results.stream()
 #        .map(Result::toJson)
