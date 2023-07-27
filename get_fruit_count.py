@@ -2,10 +2,10 @@ from ultralytics import YOLO
 from collections import Counter
 
 
-def get_item_counts(model_to_use, source_to_use, names):
+def get_item_counts(model_to_use, source_to_use, model_names):
     results = model_to_use.predict(source_to_use, stream=False, verbose=True, device=0, show=False)
     return map(lambda result:
-               Counter(map(lambda box: names[int(box.cls)],
+               Counter(map(lambda box: model_names[int(box.cls)],
                            result.boxes)),
                results)
 
@@ -17,9 +17,4 @@ if __name__ == '__main__':
     names = model.names
     for item_count in get_item_counts(model, source, names):
         print(item_count)
-# results.stream()
-#        .map(Result::toJson)
-#        .map(array -> array.stream()
-#                           .collect(
-#                                   Collectors.groupingBy(
-#                                           Inference::getName, Collectors.counting()))
+
