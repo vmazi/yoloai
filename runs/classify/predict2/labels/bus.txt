@@ -1,0 +1,5 @@
+0.43 minibus
+0.29 police_van
+0.06 ambulance
+0.04 recreational_vehicle
+0.03 bullet_train

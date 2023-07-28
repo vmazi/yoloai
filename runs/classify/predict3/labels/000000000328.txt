@@ -1,0 +1,5 @@
+0.60 military_uniform
+0.05 bearskin
+0.05 accordion
+0.03 cornet
+0.03 sax
